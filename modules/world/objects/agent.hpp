@@ -29,6 +29,7 @@ using models::dynamic::State;
 using models::behavior::BehaviorModelPtr;
 using models::dynamic::DynamicModelPtr;
 using models::execution::ExecutionModelPtr;
+using models::behavior::StateActionPair;
 using models::behavior::StateActionHistory;
 using models::behavior::BehaviorStatus;
 using models::dynamic::Trajectory;
@@ -100,6 +101,14 @@ class Agent : public Object {
     behavior_model_ = behavior_model_ptr;
   }
 
+  void SetExecutionModel(const ExecutionModelPtr &execution_model_ptr) {
+    execution_model_ = execution_model_ptr;
+  }
+
+  void SetDynamicModel(const DynamicModelPtr &dynamic_model_ptr) {
+    dynamic_model_ = dynamic_model_ptr;
+  }
+
   void SetGoalDefinition(const GoalDefinitionPtr &goal_definition) {
     goal_definition_ = goal_definition;
   }
@@ -113,6 +122,8 @@ class Agent : public Object {
   void SetRoadCorridor(const RoadCorridorPtr road_corridor) {
     road_corridor_ = road_corridor;
   }
+
+  void AddTrajectoryStep(const StateActionPair& state_action_pair);
 
   void BehaviorPlan(const float &dt, const ObservedWorld &observed_world);
 
