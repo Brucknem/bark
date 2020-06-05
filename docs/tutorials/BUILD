@@ -24,6 +24,7 @@ py_binary(
           "//python:bark.so",
           "//modules/runtime/tests:xodr_data",
           "@benchmark_database//data/database1:database1",
+          "@bark_ml//python:bark_ml_library.so",
           ]
 )
 

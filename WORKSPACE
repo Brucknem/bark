@@ -41,9 +41,11 @@ benchmark_database_release()
 # ------------------- BARK-ML ----------------------
 git_repository(
   name = "bark_ml",
-  commit="f1f392ab46bd1e5ea8db5958113526c173814a0e",
-  remote = "https://github.com/bark-simulator/bark-ml"
+  commit="73e8a85511546869f7f58dc3ba3c07c3571f5a2c",
+  remote = "https://github.com/GAIL-4-BARK/bark-ml"
 )
+load("@bark_ml//utils:dependencies.bzl", "bark_ml_external_dependencies")
+bark_ml_external_dependencies()
 # --------------------------------------------------
 
 # git_repository(
