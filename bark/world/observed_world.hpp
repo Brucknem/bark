@@ -4,8 +4,8 @@
 // This work is licensed under the terms of the MIT license.
 // For a copy, see <https://opensource.org/licenses/MIT>.
 
-#ifndef MODULES_WORLD_OBSERVED_WORLD_HPP_
-#define MODULES_WORLD_OBSERVED_WORLD_HPP_
+#ifndef BARK_WORLD_OBSERVED_WORLD_HPP_
+#define BARK_WORLD_OBSERVED_WORLD_HPP_
 
 #include <unordered_map>
 #include <utility>
@@ -14,18 +14,18 @@
 #include "bark/world/prediction/prediction_settings.hpp"
 #include "bark/world/world.hpp"
 
-namespace modules {
+namespace bark {
 namespace world {
 
-using modules::geometry::Point2d;
-using modules::models::behavior::BehaviorModel;
-using modules::models::behavior::BehaviorModelPtr;
-using modules::models::behavior::DiscreteAction;
-using modules::models::behavior::Action;
-using modules::models::dynamic::State;
-using modules::models::dynamic::StateDefinition::X_POSITION;
-using modules::models::dynamic::StateDefinition::Y_POSITION;
-using modules::world::prediction::PredictionSettings;
+using bark::geometry::Point2d;
+using bark::models::behavior::BehaviorModel;
+using bark::models::behavior::BehaviorModelPtr;
+using bark::models::behavior::DiscreteAction;
+using bark::models::behavior::Action;
+using bark::models::dynamic::State;
+using bark::models::dynamic::StateDefinition::X_POSITION;
+using bark::models::dynamic::StateDefinition::Y_POSITION;
+using bark::world::prediction::PredictionSettings;
 using world::map::MapInterfacePtr;
 using world::map::RoadCorridorPtr;
 using world::objects::Agent;
@@ -74,6 +74,8 @@ class ObservedWorld : public World {
     tmp_map.erase(ego_agent_id_);
     return tmp_map;
   }
+
+  AgentMap GetValidOtherAgents() const;
 
   const std::shared_ptr<BehaviorModel> GetEgoBehaviorModel() const {
     return World::GetAgent(ego_agent_id_)->GetBehaviorModel();
@@ -134,6 +136,7 @@ class ObservedWorld : public World {
       std::make_shared<ObservedWorld>(world_clone, this->ego_agent_id_);
     return std::dynamic_pointer_cast<World>(observed_world);
   }
+
   virtual EvaluationMap Evaluate() const;
 
  private:
@@ -143,6 +146,6 @@ class ObservedWorld : public World {
 typedef std::shared_ptr<ObservedWorld> ObservedWorldPtr;
 
 }  // namespace world
-}  // namespace modules
+}  // namespace bark
 
-#endif  // MODULES_WORLD_OBSERVED_WORLD_HPP_
+#endif  // BARK_WORLD_OBSERVED_WORLD_HPP_

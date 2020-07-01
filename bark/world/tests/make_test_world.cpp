@@ -17,31 +17,31 @@
 #include "bark/world/observed_world.hpp"
 #include "bark/world/tests/make_test_xodr_map.hpp"
 
-using namespace modules::models::dynamic;
-using namespace modules::models::execution;
-using namespace modules::commons;
-using namespace modules::models::behavior;
-using namespace modules::world::map;
-using namespace modules::models::dynamic;
-using namespace modules::world::goal_definition;
-using namespace modules::world::tests;
+using namespace bark::models::dynamic;
+using namespace bark::models::execution;
+using namespace bark::commons;
+using namespace bark::models::behavior;
+using namespace bark::world::map;
+using namespace bark::models::dynamic;
+using namespace bark::world::goal_definition;
+using namespace bark::world::tests;
 
-using modules::geometry::Model3D;
-using modules::geometry::Point2d;
-using modules::geometry::Polygon;
-using modules::geometry::Pose;
-using modules::world::World;
-using modules::world::WorldPtr;
-using modules::world::goal_definition::GoalDefinitionPolygon;
-using modules::world::goal_definition::GoalDefinitionPtr;
-using modules::world::map::MapInterface;
-using modules::world::map::MapInterfacePtr;
-using modules::world::objects::Agent;
-using modules::world::objects::AgentPtr;
-using modules::world::opendrive::OpenDriveMapPtr;
-using modules::world::tests::MakeXodrMapOneRoadTwoLanes;
+using bark::geometry::Model3D;
+using bark::geometry::Point2d;
+using bark::geometry::Polygon;
+using bark::geometry::Pose;
+using bark::world::World;
+using bark::world::WorldPtr;
+using bark::world::goal_definition::GoalDefinitionPolygon;
+using bark::world::goal_definition::GoalDefinitionPtr;
+using bark::world::map::MapInterface;
+using bark::world::map::MapInterfacePtr;
+using bark::world::objects::Agent;
+using bark::world::objects::AgentPtr;
+using bark::world::opendrive::OpenDriveMapPtr;
+using bark::world::tests::MakeXodrMapOneRoadTwoLanes;
 
-WorldPtr modules::world::tests::make_test_world(
+WorldPtr bark::world::tests::make_test_world(
     int num_other_agents, double rel_distance, double ego_velocity,
     double velocity_difference, const GoalDefinitionPtr& ego_goal_definition) {
   float pos_x = 3.0;
@@ -69,6 +69,7 @@ WorldPtr modules::world::tests::make_test_world(
   AgentPtr agent1(new Agent(init_state1, beh_model_idm, dyn_model, exec_model,
                             polygon, params, ego_goal_definition,
                             map_interface, geometry::Model3D()));
+  agent1->SetAgentId(1);
 
   State init_state2(static_cast<int>(StateDefinition::MIN_STATE_SIZE));
   float rel_dist_vlength =
@@ -78,6 +79,7 @@ WorldPtr modules::world::tests::make_test_world(
   AgentPtr agent2(new Agent(init_state2, beh_model_const, dyn_model, exec_model,
                             polygon, params, ego_goal_definition,
                             map_interface, geometry::Model3D()));
+  agent2->SetAgentId(2);
 
   State init_state3(static_cast<int>(StateDefinition::MIN_STATE_SIZE));
   init_state3 << 0.0, pos_x + 10.0 + rel_dist_vlength, pos_y, 0.0,
@@ -86,6 +88,7 @@ WorldPtr modules::world::tests::make_test_world(
                             polygon, params, ego_goal_definition,
                             map_interface,
                             geometry::Model3D()));  // NOLINT
+  agent3->SetAgentId(3);
 
   WorldPtr world(new World(params));
   world->AddAgent(agent1);
@@ -100,7 +103,7 @@ WorldPtr modules::world::tests::make_test_world(
   return WorldPtr(world->Clone());
 }
 
-ObservedWorld modules::world::tests::make_test_observed_world(
+ObservedWorld bark::world::tests::make_test_observed_world(
     int num_other_agents, double rel_distance, double ego_velocity,
     double velocity_difference, const GoalDefinitionPtr& ego_goal_definition) {
   // Create observed world for first agent
@@ -113,10 +116,10 @@ ObservedWorld modules::world::tests::make_test_observed_world(
   return observed_world;
 }
 
-WorldPtr modules::world::tests::MakeTestWorldHighway() {
-  using modules::commons::SetterParams;
+WorldPtr bark::world::tests::MakeTestWorldHighway() {
+  using bark::commons::SetterParams;
 
-  using modules::geometry::standard_shapes::CarRectangle;
+  using bark::geometry::standard_shapes::CarRectangle;
   using StateDefinition::MIN_STATE_SIZE;
 
   auto params = std::make_shared<SetterParams>();

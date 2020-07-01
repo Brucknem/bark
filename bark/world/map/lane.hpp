@@ -5,8 +5,8 @@
 // For a copy, see <https://opensource.org/licenses/MIT>.
 
 
-#ifndef MODULES_WORLD_MAP_LANE_HPP_
-#define MODULES_WORLD_MAP_LANE_HPP_
+#ifndef BARK_WORLD_MAP_LANE_HPP_
+#define BARK_WORLD_MAP_LANE_HPP_
 
 #include <memory>
 #include <map>
@@ -14,19 +14,19 @@
 #include "bark/world/opendrive/road.hpp"
 #include "bark/geometry/geometry.hpp"
 
-namespace modules {
+namespace bark {
 namespace world {
 namespace map {
 
 using LaneId = unsigned int;
-using modules::world::opendrive::XodrRoadPtr;
-using modules::world::opendrive::XodrRoad;
-using modules::world::opendrive::XodrLanes;
-using modules::world::opendrive::XodrRoadMark;
-using modules::world::opendrive::XodrLane;
-using modules::world::opendrive::XodrLanePtr;
-using modules::geometry::Polygon;
-using modules::geometry::Line;
+using bark::world::opendrive::XodrRoadPtr;
+using bark::world::opendrive::XodrRoad;
+using bark::world::opendrive::XodrLanes;
+using bark::world::opendrive::XodrRoadMark;
+using bark::world::opendrive::XodrLane;
+using bark::world::opendrive::XodrLanePtr;
+using bark::geometry::Polygon;
+using bark::geometry::Line;
 
 
 struct Boundary {
@@ -101,6 +101,11 @@ struct Lane : public XodrLane {
     right_lane_ = right_lane;
   }
 
+  bool operator==(const Lane& rhs) const {
+    return center_line_ == rhs.center_line_;
+  }
+  bool operator!=(const Lane& rhs) const { return !(rhs == *this); }
+
   std::weak_ptr<Lane> left_lane_;  // from_id, to_id
   std::weak_ptr<Lane> right_lane_;  // from_id, to_id
   std::shared_ptr<Lane> next_lane_;
@@ -116,6 +121,6 @@ using Lanes = std::map<LaneId, LanePtr>;
 
 }  // namespace map
 }  // namespace world
-}  // namespace modules
+}  // namespace bark
 
-#endif  // MODULES_WORLD_MAP_LANE_HPP_
+#endif  // BARK_WORLD_MAP_LANE_HPP_

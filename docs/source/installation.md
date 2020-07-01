@@ -17,11 +17,13 @@ This section describes the prerequisites and installation-steps of BARK.
 
 ## Setup on Linux
 
+Optional: We recommend to use Anaconda. This way, you can create a clean python environment. After installation, create a conda env `conda create --name bark_python_env python=3.7` and follow with activating it: `conda activate bark_python_env`. You can now proceed with the following:
+
 1. Use `git clone https://github.com/bark-simulator/bark.git` or download the repository from this page.
 2. Run `bash install.sh`: creates a virtual environment (located in python/venv) and installs all python packages
 2. Run `source dev_into.sh`: activates the virtual environment (make sure to run this before bazel)
 3. Use `bazel test //...` to validate that BARK is working.
-4. Finally, try one of the examples provided in BARK by running `bazel run //bark/examples:od8_const_vel_two_agent`.
+4. Finally, try one of the examples provided in BARK by running `bazel run //examples:merging`.
 
 
 ## Setup on MacOS

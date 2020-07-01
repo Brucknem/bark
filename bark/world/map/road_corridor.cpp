@@ -7,8 +7,9 @@
 #include <utility>
 #include <memory>
 #include "bark/world/map/road_corridor.hpp"
+#include "bark/commons/transformation/frenet.hpp"
 
-namespace modules {
+namespace bark {
 namespace world {
 namespace map {
 
@@ -37,6 +38,22 @@ RoadCorridor::GetLeftRightLaneCorridor(const Point2d& pt) const {
     GetLaneCorridor(right_lane_id));
 }
 
+LaneCorridorPtr RoadCorridor::GetNearestLaneCorridor(const Point2d& pt) const {
+  using bark::commons::transformation::FrenetPosition;
+  auto lc = GetCurrentLaneCorridor(pt);
+  if (!lc) {
+    double min_lat = std::numeric_limits<double>::infinity();
+    for (const auto& corridor : unique_lane_corridors_) {
+      FrenetPosition f(pt, corridor->GetCenterLine());
+      if (std::abs(f.lat) < min_lat) {
+        min_lat = std::abs(f.lat);
+        lc = corridor;
+      }
+    }
+  }
+  return lc;
+}
+
 }  // namespace map
 }  // namespace world
-}  // namespace modules
+}  // namespace bark

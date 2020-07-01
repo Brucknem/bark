@@ -4,8 +4,8 @@
 // This work is licensed under the terms of the MIT license.
 // For a copy, see <https://opensource.org/licenses/MIT>.
 
-#ifndef MODULES_MODELS_BEHAVIOR_MOTION_PRIMITIVES_MACRO_ACTIONS_HPP_
-#define MODULES_MODELS_BEHAVIOR_MOTION_PRIMITIVES_MACRO_ACTIONS_HPP_
+#ifndef BARK_MODELS_BEHAVIOR_MOTION_PRIMITIVES_MACRO_ACTIONS_HPP_
+#define BARK_MODELS_BEHAVIOR_MOTION_PRIMITIVES_MACRO_ACTIONS_HPP_
 
 #include <vector>
 
@@ -13,7 +13,7 @@
 #include "bark/models/behavior/motion_primitives/primitives/primitive.hpp"
 #include "bark/world/map/lane_corridor.hpp"
 
-namespace modules {
+namespace bark {
 namespace models {
 namespace behavior {
 
@@ -23,11 +23,11 @@ using world::map::LaneCorridorPtr;
 
 class BehaviorMPMacroActions : public BehaviorMotionPrimitives {
  public:
-  explicit BehaviorMPMacroActions(const ParamsPtr& params)
-      : BehaviorMotionPrimitives(params) {}
   BehaviorMPMacroActions(
       const ParamsPtr& params,
       const std::vector<primitives::PrimitivePtr>& motion_primitives);
+  explicit BehaviorMPMacroActions(const ParamsPtr& params)
+      : BehaviorMPMacroActions(params, {}) {}
 
   ~BehaviorMPMacroActions() = default;
 
@@ -59,6 +59,6 @@ class BehaviorMPMacroActions : public BehaviorMotionPrimitives {
 
 }  // namespace behavior
 }  // namespace models
-}  // namespace modules
+}  // namespace bark
 
-#endif  // MODULES_MODELS_BEHAVIOR_MOTION_PRIMITIVES_MACRO_ACTIONS_HPP_
+#endif  // BARK_MODELS_BEHAVIOR_MOTION_PRIMITIVES_MACRO_ACTIONS_HPP_

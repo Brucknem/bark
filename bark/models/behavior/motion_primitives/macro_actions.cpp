@@ -8,20 +8,20 @@
 #include "bark/models/dynamic/integration.hpp"
 #include "bark/world/observed_world.hpp"
 
-namespace modules {
+namespace bark {
 namespace models {
 namespace behavior {
 
-using modules::models::dynamic::StateDefinition;
+using bark::models::dynamic::StateDefinition;
 
 BehaviorMPMacroActions::BehaviorMPMacroActions(
     const commons::ParamsPtr& params,
     const std::vector<primitives::PrimitivePtr>& motion_primitives)
     : BehaviorMotionPrimitives(params),
       motion_primitives_(motion_primitives),
-      check_validity_in_plan_(params->AddChild("BehaviorMPMacroActions")
-                        ->GetBool("CheckValidityInPlan",
-                        "If true only primitives can be selected which are valid", true)) {}
+      check_validity_in_plan_(params->GetBool(
+          "BehaviorMPMacroActions::CheckValidityInPlan",
+          "If true only primitives can be selected which are valid", true)) {}
 
 BehaviorMotionPrimitives::MotionIdx BehaviorMPMacroActions::AddMotionPrimitive(
     const primitives::PrimitivePtr& primitive) {
@@ -117,4 +117,4 @@ inline std::shared_ptr<BehaviorModel> BehaviorMPMacroActions::Clone() const {
 
 }  // namespace behavior
 }  // namespace models
-}  // namespace modules
+}  // namespace bark
